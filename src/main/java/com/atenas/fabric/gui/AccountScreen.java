@@ -422,7 +422,7 @@ public final class AccountScreen extends Screen {
         if (pending != null) return true;
         if (nameField.isFocused()) {
             if (code == 257 || code == 335) { enterOffline(); return true; }
-            return nameField.keyPressed(input);
+            return nameField.keyPressed(keyCode, scanCode, modifiers);
         }
         return false;
     }
@@ -430,7 +430,7 @@ public final class AccountScreen extends Screen {
     @Override
     public boolean charTyped(char chr, int modifiers) {
         if (modal()) return true;
-        return nameField.isFocused() && nameField.charTyped(input);
+        return nameField.isFocused() && nameField.charTyped(chr, modifiers);
     }
 
     @Override

@@ -33,7 +33,7 @@ public abstract class PlayerListHudMixin {
     @Inject(method = "getPlayerName", at = @At("RETURN"), cancellable = true, require = 0)
     private void atenas$logo(PlayerListEntry entry, CallbackInfoReturnable<Text> cir) {
         if (entry == null || entry.getProfile() == null || !com.atenas.fabric.hud.Modules.on("tablogo")) return;
-        String n = entry.getProfile().name();
+        String n = entry.getProfile().getName();
         MinecraftClient mc = MinecraftClient.getInstance();
         boolean user = n.equalsIgnoreCase(mc.getSession().getUsername()) || CosmeticSync.isUserName(n);
         if (user) cir.setReturnValue(Text.literal(CosmeticSync.LOGO + " ").append(cir.getReturnValue()));

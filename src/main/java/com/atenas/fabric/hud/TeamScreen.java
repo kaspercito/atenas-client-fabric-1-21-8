@@ -72,7 +72,7 @@ public final class TeamScreen extends Screen {
         if (client == null || client.getNetworkHandler() == null) return out;
         String me = client.getSession().getUsername();
         for (PlayerListEntry e : client.getNetworkHandler().getPlayerList()) {
-            String n = e.getProfile() == null ? null : e.getProfile().name();
+            String n = e.getProfile() == null ? null : e.getProfile().getName();
             if (n != null && !n.equalsIgnoreCase(me) && TeamStore.valid(n) && !TeamStore.has(n) && !out.contains(n)) out.add(n);
         }
         Collections.sort(out, String.CASE_INSENSITIVE_ORDER);

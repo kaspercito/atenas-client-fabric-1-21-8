@@ -76,7 +76,7 @@ public final class CosmeticLayer extends FeatureRenderer<EntityRenderState, Enti
         int lit = preview ? FULL : light; // vista previa a pleno brillo, como en el 1.8.9
         float by = state instanceof LivingEntityRenderState ls ? ls.bodyYaw : p.getBodyYaw();
         // balanceo de las piernas (limbSwing / limbSwingAmount del 1.8.9)
-        float limbSwing = p.limbAnimator.getPos(pt), limbAmount = p.limbAnimator.getSpeed(pt);
+        float limbSwing = p.limbAnimator.getAnimationProgress(pt), limbAmount = p.limbAnimator.getSpeed();
 
         if (wingId != null) {
             Cosmetics.Item item = Cosmetics.find("wings", wingId);

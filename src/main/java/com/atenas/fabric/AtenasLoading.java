@@ -86,8 +86,6 @@ public final class AtenasLoading extends Overlay {
     }
 
     /** Desde 1.21.9 el overlay original avanza en tick() (termina la recarga, abre el menu y se quita): hay que reenviarlo o se queda pegado. */
-    @Override
-    public void tick() { try { orig.tick(); } catch (Throwable t) { if (!failed) { failed = true; System.out.println("[Atenas] carga: tick del original fallo: " + t); } } }
 
     @Override
     public boolean pausesGame() { return orig.pausesGame(); }

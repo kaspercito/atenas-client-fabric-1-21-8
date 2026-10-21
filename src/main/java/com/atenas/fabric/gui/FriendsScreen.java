@@ -675,15 +675,15 @@ public final class FriendsScreen extends Screen {
             if (addField.isFocused()) { sendRequest(); return true; }
             if (selected != null && chatField.isFocused()) { sendChat(); return true; }
         }
-        if (addField.isFocused()) return addField.keyPressed(input);
-        if (selected != null && chatField.isFocused()) return chatField.keyPressed(input);
+        if (addField.isFocused()) return addField.keyPressed(keyCode, scanCode, modifiers);
+        if (selected != null && chatField.isFocused()) return chatField.keyPressed(keyCode, scanCode, modifiers);
         return false;
     }
 
     @Override
     public boolean charTyped(char chr, int modifiers) {
-        if (addField.isFocused()) return addField.charTyped(input);
-        if (selected != null && chatField.isFocused()) return chatField.charTyped(input);
+        if (addField.isFocused()) return addField.charTyped(chr, modifiers);
+        if (selected != null && chatField.isFocused()) return chatField.charTyped(chr, modifiers);
         return false;
     }
 

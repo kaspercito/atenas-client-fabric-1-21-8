@@ -17,7 +17,7 @@ public final class TabList {
     public static void render(MinecraftClient mc, DrawContext g) {
         if (mc.getNetworkHandler() == null || !mc.options.playerListKey.isPressed()) return;
         List<PlayerListEntry> l = new ArrayList<>(mc.getNetworkHandler().getPlayerList());
-        l.sort(Comparator.comparing((PlayerListEntry e) -> e.getProfile().name().toLowerCase()));
+        l.sort(Comparator.comparing((PlayerListEntry e) -> e.getProfile().getName().toLowerCase()));
         if (l.size() > 80) l = l.subList(0, 80);
         int rows = Math.min(20, Math.max(1, (l.size() + 3) / 4)), cols = (l.size() + rows - 1) / rows;
         int colW = 40;

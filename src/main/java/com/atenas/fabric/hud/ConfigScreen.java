@@ -84,7 +84,8 @@ public final class ConfigScreen extends Screen {
 
     private int cols(int bw) { return bw >= 540 ? 3 : bw >= 300 ? 2 : 1; }
 
-    private void close() { client.setScreen(parent); }
+    @Override
+    public void close() { client.setScreen(parent); }
 
     /** Engranaje de TODOS los modulos: Autotext abre su editor de atajos; el resto, su panel de ajustes (con scroll). */
     private void openSettings(String k) {
