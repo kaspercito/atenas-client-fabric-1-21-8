@@ -21,6 +21,7 @@ public final class ModSettingsScreen extends Screen {
     private static final int ROW = 24, TOP = 44, FOOT = 38;
     private final Screen parent;
     private final String mod, title;
+    private final int prev; // alto reservado arriba para la vista previa (solo la Mira)
     private final List<Settings.Def> defs;
     private final Map<Integer, TextFieldWidget> fieldOf = new HashMap<>();
     private int px, py, pw, ph, listTop, listH, scroll, dragging = -1;
@@ -29,15 +30,16 @@ public final class ModSettingsScreen extends Screen {
     public ModSettingsScreen(Screen parent, String mod, String title) {
         super(Text.literal(title));
         this.parent = parent; this.mod = mod; this.title = title;
+        this.prev = mod.equals("crosshair") ? 78 : 0;
         this.defs = Settings.of(mod);
     }
 
     @Override
     protected void init() {
         pw = Math.min(380, width - 16);
-        ph = Math.min(Math.max(150, TOP + Math.max(defs.size(), 2) * ROW + FOOT), height - 8);
+        ph = Math.min(Math.max(150, TOP + prev + Math.max(defs.size(), 2) * ROW + FOOT), height - 8);
         px = (width - pw) / 2; py = (height - ph) / 2;
-        listTop = py + TOP; listH = Math.max(ROW, ph - TOP - FOOT);
+        listTop = py + TOP + prev; listH = Math.max(ROW, ph - TOP - prev - FOOT);
         scroll = Math.max(0, Math.min(scroll, maxScroll()));
         scrollSmooth = scroll;
         fieldOf.clear();
@@ -82,6 +84,7 @@ public final class ModSettingsScreen extends Screen {
         Fx.heading(g, title, px + 14, py + 12, Ui.TEXT);
         Ui.text(g, "Ajustes del modulo", px + 14, py + 26, Ui.DIM);
         Ui.rect(g, px + 14, py + 40, pw - 28, 1, Ui.BORDER);
+        if (prev > 0) crosshairPreview(g, px + 14, py + 48, pw - 28, 64);
         Ui.rect(g, px + 14, py + ph - FOOT + 2, pw - 28, 1, Ui.BORDER);
 
         // los campos de texto siguen a su fila y se ocultan si la fila no se ve entera
@@ -139,6 +142,20 @@ public final class ModSettingsScreen extends Screen {
 
         super.render(g, mx, my, delta);
         Ui.paintButtons(g, textRenderer, children());
+    }
+
+    /** Vista previa en vivo de la mira (igual que el 1.8.9): a la izquierda "Normal" y a la derecha "Apuntando", sobre fondos de contraste. */
+    private void crosshairPreview(DrawContext g, int x, int y, int w, int h) {
+        int half = w / 2;
+        int[] bg = {0xFF2B3A28, 0xFF1A1830}; // "pasto" y "oscuro": la mira se ve distinto sobre cada uno
+        String[] label = {"Normal", "Apuntando"};
+        for (int i = 0; i < 2; i++) {
+            int bx = x + i * half + (i == 1 ? 2 : 0), bw = half - 2;
+            Ui.card(g, bx, y, bw, h, 0xFF0B0A14, Ui.BORDER);
+            Ui.gradient(g, bx + 1, y + 1, bw - 2, h - 2, bg[i], 0xFF0B0A14, true);
+            Ui.text(g, label[i], bx + 4, y + 4, Ui.DIM);
+            Extras.drawCrosshairAt(g, bx + bw / 2, y + h / 2 + 4, 0, i == 0 ? 2 : 1);
+        }
     }
 
     private void slide(int i, double mx) {

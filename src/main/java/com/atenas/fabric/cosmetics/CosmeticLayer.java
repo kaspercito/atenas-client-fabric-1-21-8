@@ -35,7 +35,7 @@ public final class CosmeticLayer extends FeatureRenderer<EntityRenderState, Enti
     private final WingPlane plane = new WingPlane();
     private final Sink sink = new Sink();
 
-    private static final class State { float air, phase, spd, vy; long last; double lx, ly, lz; boolean init; }
+    private static final class State { float air, phase, spd, vy, mvx, mvy, mvz; long last; double lx, ly, lz; boolean init; int tickAge; }
     private final Map<Integer, State> states = new HashMap<>();
 
     @SuppressWarnings({"unchecked", "rawtypes"})
@@ -103,10 +103,14 @@ public final class CosmeticLayer extends FeatureRenderer<EntityRenderState, Enti
         float dt = Math.min(0.1F, (now - st.last) / 1.0e9F) * 20F;
         st.last = now;
         st.air += ((airNow ? 1F : 0F) - st.air) * Math.min(1F, dt * 0.25F);
-        if (!st.init) { st.init = true; st.lx = p.getX(); st.ly = p.getY(); st.lz = p.getZ(); }
-        float mvx = (float) (p.getX() - st.lx), mvz = (float) (p.getZ() - st.lz), mvy = (float) (p.getY() - st.ly);
-        float kdt = Math.max(dt, 0.05F); mvx /= kdt; mvz /= kdt; mvy /= kdt;
-        st.lx = p.getX(); st.ly = p.getY(); st.lz = p.getZ();
+        // movimiento POR TICK (como p.posX - p.prevPosX del 1.8.9): la posicion solo cambia cada tick, antes se media por cuadro y salia a saltos
+        if (!st.init) { st.init = true; st.lx = p.getX(); st.ly = p.getY(); st.lz = p.getZ(); st.tickAge = p.age; }
+        int dtk = p.age - st.tickAge;
+        if (dtk > 0) {
+            st.mvx = (float) ((p.getX() - st.lx) / dtk); st.mvy = (float) ((p.getY() - st.ly) / dtk); st.mvz = (float) ((p.getZ() - st.lz) / dtk);
+            st.lx = p.getX(); st.ly = p.getY(); st.lz = p.getZ(); st.tickAge = p.age;
+        } else if (dtk < 0) { st.lx = p.getX(); st.ly = p.getY(); st.lz = p.getZ(); st.tickAge = p.age; }
+        float mvx = st.mvx, mvz = st.mvz, mvy = st.mvy;
         st.spd += (Math.min(1F, (float) Math.sqrt(mvx * mvx + mvz * mvz) * 4F) - st.spd) * Math.min(1F, dt * 0.2F);
         st.vy += (Math.max(-1F, Math.min(1F, mvy * 2.5F)) - st.vy) * Math.min(1F, dt * 0.3F);
         st.phase += dt * (0.35F + st.air * 0.65F + st.spd * 0.25F + Math.abs(st.vy) * 0.5F * st.air);
@@ -135,7 +139,7 @@ public final class CosmeticLayer extends FeatureRenderer<EntityRenderState, Enti
         model.body.applyTransform(ms);
         // el 1.8.9 dibuja las alas con mezcla alfa (770, 771): las plumas y membranas semitransparentes se mezclan, no se recortan
         {
-            VertexConsumer vc = queue.getBuffer(RenderLayer.getEntityTranslucent(tex("wings", item.id)));
+            VertexConsumer vc = queue.getBuffer(fTwo ? RenderLayer.getEntityTranslucentCull(tex("wings", item.id)) : RenderLayer.getEntityTranslucent(tex("wings", item.id)));
             sink.vc = vc; sink.e = ms.peek(); sink.light = fLight;
             if (item.membrane) plane.emit(sink, fOpen, fTime, fFlap, fTwo, WingPlane.gridFor(fd2), 0.0625F);
             else mesh.emit(sink, fOpen, fPhase, fFlap, fSegs, fTwo, 0.0625F);

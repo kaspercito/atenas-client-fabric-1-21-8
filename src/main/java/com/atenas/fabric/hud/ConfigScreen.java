@@ -282,7 +282,7 @@ public final class ConfigScreen extends Screen {
         Ui.card(g, bx, top, bw, bh - 20, Ui.PANEL, Ui.BORDER);
         Ui.logo(g, bx + 14, top + 14, 56);
         com.atenas.fabric.gui.Fx.scaled(g, "Atenas Client", bx + 82, top + 18, 2f, Ui.TEXT, false);
-        Ui.text(g, "Versi\u00f3n " + com.atenas.fabric.AtenasFabricClient.VERSION + "  \u00b7  Minecraft 1.21.8 (Fabric)", bx + 82, top + 40, Ui.DIM);
+        Ui.text(g, "Versi\u00f3n " + com.atenas.fabric.AtenasFabricClient.VERSION + "  \u00b7  Minecraft " + com.atenas.fabric.AtenasFabricClient.MC_VERSION + " (Fabric)", bx + 82, top + 40, Ui.DIM);
         String[] info = {
             "RShift  \u2192  abrir / cerrar este men\u00fa   \u00b7   Shift+Tab  \u2192  amigos y chat",
             "Mods \u2192 elige un m\u00f3dulo para ver sus ajustes.",

@@ -26,6 +26,8 @@ import net.minecraft.text.Text;
  */
 public final class AtenasFabricClient implements ClientModInitializer {
     public static final String VERSION = "0.3.0";
+    /** Version de Minecraft de este build (la pantalla de carga y el menu la muestran; cambiarla al portar a otra version). */
+    public static final String MC_VERSION = "1.21.8";
 
     private static final java.util.Set<String> FAILED = new java.util.HashSet<>();
 

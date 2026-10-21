@@ -200,7 +200,7 @@ public final class AtenasLoading extends Overlay {
 
         float ty = ly + logoS + 13.9f * k;
         ty += TextTex.draw(g, mc, "A T E N A S", 21.4f * k, 0xE9E3FF, cx, ty, true, alpha) + 1.1f * k;
-        TextTex.draw(g, mc, "C  L  I  E  N  T   \u00b7   1 . 2 1 . 1 1", 7.5f * k, 0x22D3EE, cx, ty, true, alpha);
+        TextTex.draw(g, mc, "C  L  I  E  N  T   \u00b7   " + String.join(" ", AtenasFabricClient.MC_VERSION.split("")), 7.5f * k, 0x22D3EE, cx, ty, true, alpha);
 
         final int bw = Math.round(260 * k), bh = Math.max(5, Math.round(7 * k));
         final int bx = cx - bw / 2, by = Math.round(h / 2f + 52 * k);
