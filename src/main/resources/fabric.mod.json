@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "id": "atenasclientfabric",
+  "version": "${version}",
+  "name": "Atenas Client",
+  "description": "Cliente de Atenas para Minecraft 1.21.8 (Fabric): waypoints y capas compartidos con el cliente 1.8.9 y el mod 1.20.1, Team View y utilidades.",
+  "authors": ["Atenas"],
+  "environment": "client",
+  "mixins": ["atenasclientfabric.mixins.json"],
+  "entrypoints": { "client": ["com.atenas.fabric.AtenasFabricClient"] },
+  "depends": { "fabricloader": ">=0.16.0", "minecraft": "~1.21.8", "java": ">=21", "fabric-api": "*" }
+}

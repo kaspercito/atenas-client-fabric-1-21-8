@@ -1,0 +1,9 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.atenas.fabric.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "refmap": "atenasclientfabric.refmap.json",
+  "client": ["PlayerCapeMixin", "NametagMixin", "ChatHudMixin", "FreelookMixin", "CameraMixin", "ZoomFovMixin", "ZoomScrollMixin", "PlayerListHudMixin", "EntityFireMixin", "ScoreboardObjectiveMixin"],
+  "injectors": { "defaultRequire": 0 }
+}

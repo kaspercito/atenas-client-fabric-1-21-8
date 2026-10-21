@@ -1,0 +1,14 @@
+{
+  "key.atenasclientfabric.menu": "Menú de Atenas Client",
+  "key.category.atenasclientfabric.main": "Atenas Client",
+  "key.atenasclientfabric.zoom": "Zoom (mantener, rueda = nivel)",
+  "key.atenasclientfabric.fullbright": "Fullbright",
+  "key.atenasclientfabric.perspective": "Perspectiva libre (mantener)",
+  "key.atenasclientfabric.voice_ptt": "Voz: pulsar para hablar",
+  "key.atenasclientfabric.voice_mute": "Voz: silenciar micrófono",
+  "key.atenasclientfabric.voice_deafen": "Voz: silenciar audio",
+  "key.atenasclientfabric.autotext_1": "Autotext 1",
+  "key.atenasclientfabric.autotext_2": "Autotext 2",
+  "key.atenasclientfabric.autotext_3": "Autotext 3",
+  "key.atenasclientfabric.autotext_4": "Autotext 4"
+}
