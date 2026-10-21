@@ -10,7 +10,7 @@ import com.atenas.fabric.cosmetics.CosmeticSync;
 import com.atenas.fabric.cosmetics.Cosmetics;
 
 import net.minecraft.client.network.AbstractClientPlayerEntity;
-import net.minecraft.entity.player.SkinTextures;
+import net.minecraft.client.util.SkinTextures;
 import net.minecraft.util.Identifier;
 
 /**

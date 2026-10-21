@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.texture.OverlayTexture;
+import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.util.math.MatrixStack;
 
 /** Malla .atm de un sombrero (mismos archivos que el cliente 1.8.9 y el mod 1.20.1). Formato: 'ATM1', grupos; por grupo nombre, flags, quads. */
