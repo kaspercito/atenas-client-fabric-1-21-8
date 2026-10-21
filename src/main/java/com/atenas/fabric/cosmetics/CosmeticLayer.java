@@ -139,7 +139,7 @@ public final class CosmeticLayer extends FeatureRenderer<EntityRenderState, Enti
         model.body.applyTransform(ms);
         // el 1.8.9 dibuja las alas con mezcla alfa (770, 771): las plumas y membranas semitransparentes se mezclan, no se recortan
         {
-            VertexConsumer vc = queue.getBuffer(fTwo ? RenderLayer.getEntityTranslucentCull(tex("wings", item.id)) : RenderLayer.getEntityTranslucent(tex("wings", item.id)));
+            VertexConsumer vc = queue.getBuffer(RenderLayer.getEntityTranslucent(tex("wings", item.id))); // 1.21.8: ya no existe getEntityTranslucentCull
             sink.vc = vc; sink.e = ms.peek(); sink.light = fLight;
             if (item.membrane) plane.emit(sink, fOpen, fTime, fFlap, fTwo, WingPlane.gridFor(fd2), 0.0625F);
             else mesh.emit(sink, fOpen, fPhase, fFlap, fSegs, fTwo, 0.0625F);
